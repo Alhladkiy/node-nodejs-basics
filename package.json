@@ -8,9 +8,8 @@
     "create": "node src/fs/create.js",
     "delete": "node src/fs/delete.js",
     "read": "node src/fs/read.js",
-    "rename": "node src/fs/rename.js"
-
-    
+    "rename": "node src/fs/rename.js",
+    "list": "node src/fs/list.js"
   },
   "repository": {
     "type": "git",
