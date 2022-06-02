@@ -5,7 +5,9 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "create": "node src/fs/create.js"
+    "create": "node src/fs/create.js",
+    "delete": "node src/fs/delete.js"
+
   },
   "repository": {
     "type": "git",
