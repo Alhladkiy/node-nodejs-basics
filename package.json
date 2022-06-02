@@ -7,7 +7,10 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "create": "node src/fs/create.js",
     "delete": "node src/fs/delete.js",
-    "read": "node src/fs/read.js"
+    "read": "node src/fs/read.js",
+    "rename": "node src/fs/rename.js"
+
+    
   },
   "repository": {
     "type": "git",
