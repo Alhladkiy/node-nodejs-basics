@@ -12,7 +12,7 @@
     "list": "node src/fs/list.js",
     "copy": "node src/fs/copy.js",
     "args": "node src/cli/args.js",
-    "env": "node src/cli/env.js"
+    "env": "node src/cli/env.js"  
   },
   "repository": {
     "type": "git",
