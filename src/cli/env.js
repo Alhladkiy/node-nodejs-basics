@@ -1,5 +1,4 @@
 export const parseEnv = () => {
-  
     const variable = process.env;
     const findName = 'RSS_';
     for (let key in variable) {
