@@ -13,7 +13,9 @@
     "fs:copy": "node src/fs/copy.js",
     "cli:args": "node src/cli/args.js",
     "cli:env": "node src/cli/env.js",
-    "hash": "node src/hash/calcHash.js"
+    "hash": "node src/hash/calcHash.js",
+    "streams:read": "node src/streams/read.js"
+
   },
   "repository": {
     "type": "git",
