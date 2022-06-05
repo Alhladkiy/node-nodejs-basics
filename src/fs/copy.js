@@ -10,26 +10,34 @@ export const copy = async () => {
     if (fs.existsSync(pathNewFolder)) {
         throw new Error('FS operation failed');
     } else {
-        fs.mkdir(pathNewFolder, { recursive: true }, (err) => {
+        copyFolder(pathOldFolder, pathNewFolder)
+    }
+};
+
+function copyFolder(copyFrom, copyTo) {
+    fs.mkdir(copyTo, { recursive: true }, (err) => {
+        if (err) {
+            throw err;
+        }
+        fs.readdir(copyFrom, {withFileTypes: true}, (err, dirents) => {
             if (err) {
                 throw err;
             }
-            fs.readdir(pathOldFolder, {withFileTypes: true}, (err, files) => {
-                if (err) {
-                    throw err;
+            for (let dirent of dirents) {
+                const inputPath = path.join(copyFrom, dirent.name);
+                const outputPath = path.join(copyTo, dirent.name);
+                if (!dirent.isDirectory()) {
+                    fs.copyFile(inputPath, outputPath, (err) => {
+                        if (err) {
+                            throw err;
+                        }
+                    });
+                } else {
+                    copyFolder(inputPath, outputPath);
                 }
-                for (let file of files) {
-                    if (!file.isDirectory()) {
-                        fs.copyFile(path.join(pathOldFolder, file.name), path.join(pathNewFolder, file.name), (err) => {
-                            if (err) {
-                                throw err;
-                            }
-                        });
-                    }
-                }
-            });
-        })
-    }
-};
+            }
+        });
+    })
+}
 
 copy();
