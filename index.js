@@ -6,6 +6,7 @@ import fs from 'fs';
 import { join } from 'path';
 import process from 'process';
 import os from 'os';
+import path from 'path';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -41,6 +42,14 @@ function statProject() {
             else if (line === 'os --homedir') {
                 getHomeCatalog();
             }
+            else if (line === 'os --cpus') {
+                getInfoCpu();
+            } 
+            else if (line === 'up') {
+                changeFolder();
+            }
+
+            
 
 
         });
@@ -83,8 +92,28 @@ function getEndOfLine() {
 
 function getHomeCatalog() {
     const homeCatalog = os.homedir();
-    console.log(homeCatalog)
+    console.log(`Your home catalog: ${homeCatalog}`)
 }
+
+function getInfoCpu() {
+    const infoCpu = os.cpus();
+    const result = [];
+    infoCpu.forEach((item) => {
+        const speed = `speed: ${item.speed / 1000}`;
+        const model = `model: ${item.model}`;
+        result.push(model, speed)
+
+    })
+    console.log(result)
+}
+
+function changeFolder() {
+    if(os.homedir().length < process.cwd().length) {
+        const upDirectory = path.join(`${process.cwd()}`, '..');
+        process.chdir(upDirectory);
+    }
+    console.log(`You are currently in ${process.cwd()}\n`)
+};
 
 statProject();
 
