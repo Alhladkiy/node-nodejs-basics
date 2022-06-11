@@ -19,7 +19,8 @@
     "streams:transform": "node src/streams/transform.js",
     "zip:compress": "node src/zip/compress.js",
     "zip:decompress": "node src/zip/decompress.js",
-    "modules": "node src/modules/cjsToEsm.mjs"
+    "modules": "node src/modules/cjsToEsm.mjs",
+    "start": "node /rsschool_nodejs_2022_q2/node-nodejs-basics/"
 
   },
   "repository": {
