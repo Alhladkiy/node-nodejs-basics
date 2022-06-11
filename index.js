@@ -2,13 +2,14 @@
 import readLine  from 'readline';
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
-import path from 'path';
-import { cwd } from 'process';
-import fs from 'fs'
+import fs from 'fs';
+import { join } from 'path';
+import process from 'process';
+import os from 'os';
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-
-
+const updatePathToFolder = join( __dirname, '..');
 
 function statProject() {
     const args = process.argv.slice(2);
@@ -25,19 +26,20 @@ function statProject() {
                 console.log(`Thank you for using File Manager, ${name}!`)
                 rl.close(); 
             } 
-            else if (line === 'ls')  {
+            else if (line === 'ls') {
                 readFiles();
             }
-
+            else if (line === 'os --username') {
+                userNameSystem();
+            }
         });
-        rl.on('SIGINT', (line) => {
+
+        rl.on('SIGINT', () => {
             console.log(`Thank you for using File Manager, ${name}!`)
             rl.close(); 
         });
-
     })
 }
-
 
 function readFiles () {
     fs.readdir(__dirname, (err, files) => {
@@ -52,6 +54,12 @@ function readFiles () {
         console.log(list);
     });
 }
+
+function userNameSystem() {
+    const userNameSystem =  os.userInfo().username;
+    console.log(`System user name: ${userNameSystem}`);
+}
+
 statProject();
 
 
