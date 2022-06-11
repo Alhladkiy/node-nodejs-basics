@@ -35,6 +35,9 @@ function statProject() {
             else if (line === 'os --architecture') {
                 getCpuArchitecture();
             }
+            else if (line === 'os --EOL') {
+                getEndOfLine();
+            }
         });
 
         rl.on('SIGINT', () => {
@@ -66,6 +69,11 @@ function userNameSystem() {
 function getCpuArchitecture () {
     const cpu = os.arch();
     console.log(`Your CPU architecture: ${cpu}`);
+}
+
+function getEndOfLine() {
+    const eol = JSON.stringify(os.EOL);
+    console.log(`It's: ${eol}`);
 }
 
 statProject();
