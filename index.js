@@ -38,6 +38,11 @@ function statProject() {
             else if (line === 'os --EOL') {
                 getEndOfLine();
             }
+            else if (line === 'os --homedir') {
+                getHomeCatalog();
+            }
+
+
         });
 
         rl.on('SIGINT', () => {
@@ -74,6 +79,11 @@ function getCpuArchitecture () {
 function getEndOfLine() {
     const eol = JSON.stringify(os.EOL);
     console.log(`It's: ${eol}`);
+}
+
+function getHomeCatalog() {
+    const homeCatalog = os.homedir();
+    console.log(homeCatalog)
 }
 
 statProject();
