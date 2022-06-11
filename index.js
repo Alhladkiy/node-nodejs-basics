@@ -32,6 +32,9 @@ function statProject() {
             else if (line === 'os --username') {
                 userNameSystem();
             }
+            else if (line === 'os --architecture') {
+                getCpuArchitecture();
+            }
         });
 
         rl.on('SIGINT', () => {
@@ -58,6 +61,11 @@ function readFiles () {
 function userNameSystem() {
     const userNameSystem =  os.userInfo().username;
     console.log(`System user name: ${userNameSystem}`);
+}
+
+function getCpuArchitecture () {
+    const cpu = os.arch();
+    console.log(`Your CPU architecture: ${cpu}`);
 }
 
 statProject();
