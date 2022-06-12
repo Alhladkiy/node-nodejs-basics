@@ -63,7 +63,9 @@ function startProject() {
             else if (line === `hash ${folder.trim()}`) {
                 calculateHash(folder);
             }
-
+            else if (line === `cat ${folder.trim()}`) {
+                readContentFile(folder);
+            } 
         });
 
         rl.on('SIGINT', () => {
@@ -168,6 +170,22 @@ function calculateHash(folder) {
         throw new Error('err, try again');
     }
 }
+
+function readContentFile(folder) {
+    const pathFile = (path.join(process.cwd(), folder.trim()));
+    if (fs.existsSync(pathFile)) {
+        fs.readFile(pathFile, 'utf8', (err, fileContent) => {
+            if (err) {
+                throw new Error('file is not read');
+            } else {
+                console.log(fileContent);
+            }
+        });
+    } else {
+        throw new Error('file is not read');
+    }
+}
+
 
 
 startProject();
