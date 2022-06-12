@@ -26,6 +26,11 @@ function startProject() {
         });
         rl.on('line', (line) => {
             const folder = line.slice(line.lastIndexOf(' '));
+            const newFolder = line.slice(line.lastIndexOf(' ') + 1);
+            const folderFromRename = line.split(' ')[1];
+            console.log(folderFromRename);
+            console.log(newFolder);
+
             if (line === '.exit') {
                 console.log(`Thank you for using File Manager, ${name}!`)
                 rl.close();
@@ -65,6 +70,9 @@ function startProject() {
             }
             else if (line === `cat ${folder.trim()}`) {
                 readContentFile(folder);
+            }     
+            else if (line === `rn ${folderFromRename.trim()} ${newFolder.trim()}`) {
+                renameFile(folderFromRename, newFolder);
             } 
         });
 
@@ -186,7 +194,17 @@ function readContentFile(folder) {
     }
 }
 
-
+function renameFile(folder, newFolder) {
+    const oldPath = (path.join(process.cwd(), folder.trim()));
+    const newPath =  (path.join(process.cwd(), newFolder.trim()));
+    if (fs.existsSync(oldPath)) {
+        fs.rename(oldPath, newPath, (err) => {
+            if (err) {
+                throw new Error('file is not rename!!!');
+            }
+        })
+    } 
+}
 
 startProject();
 
