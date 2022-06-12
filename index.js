@@ -10,9 +10,10 @@ import path from 'path';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-const updatePathToFolder = join( __dirname, '..');
+const pathFromCopy = (path.join(__dirname, 'files'));
+const pathToCopy = path.join(__dirname, 'files_copy');
 
-function statProject() {
+function startProject() {
     const args = process.argv.slice(2);
     args.forEach((item) => {
         const name = item.slice(11);
@@ -23,9 +24,10 @@ function statProject() {
             output: process.stdout
         });
         rl.on('line', (line) => {
+            const folder = line.slice(line.lastIndexOf(' '));
             if (line === '.exit') {
                 console.log(`Thank you for using File Manager, ${name}!`)
-                rl.close(); 
+                rl.close();
             } 
             else if (line === 'ls') {
                 readFiles();
@@ -46,12 +48,11 @@ function statProject() {
                 getInfoCpu();
             } 
             else if (line === 'up') {
-                changeFolder();
+                upDirectory();
             }
-
-            
-
-
+             else if (line === `rm ${folder.trim()}`) {
+                removeFile(folder);
+            }
         });
 
         rl.on('SIGINT', () => {
@@ -107,7 +108,7 @@ function getInfoCpu() {
     console.log(result)
 }
 
-function changeFolder() {
+function upDirectory() {
     if(os.homedir().length < process.cwd().length) {
         const upDirectory = path.join(`${process.cwd()}`, '..');
         process.chdir(upDirectory);
@@ -115,7 +116,19 @@ function changeFolder() {
     console.log(`You are currently in ${process.cwd()}\n`)
 };
 
-statProject();
+function removeFile(folder) {
+    console.log(1);
+    const pathFile = (path.join(process.cwd(), folder.trim()));
+    console.log(pathFile)
+        fs.unlink(pathFile, (err) => {
+            if (err) {
+                throw new Error('file is not delete!!!');
+            }
+            console.log(`${pathFile} delete`)
+        })
+}
+   
+startProject();
 
 
 
