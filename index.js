@@ -50,9 +50,17 @@ function startProject() {
             else if (line === 'up') {
                 upDirectory();
             }
-             else if (line === `rm ${folder.trim()}`) {
+             else if (line === `add ${folder.trim()}`) {
+                createFile(folder);
+            }
+            else if (line === `rm ${folder.trim()}`) {
                 removeFile(folder);
             }
+            else if (line === `cd ${folder.trim()}`) {
+                changeDirectory(folder);
+            }
+
+
         });
 
         rl.on('SIGINT', () => {
@@ -117,9 +125,7 @@ function upDirectory() {
 };
 
 function removeFile(folder) {
-    console.log(1);
     const pathFile = (path.join(process.cwd(), folder.trim()));
-    console.log(pathFile)
         fs.unlink(pathFile, (err) => {
             if (err) {
                 throw new Error('file is not delete!!!');
@@ -127,7 +133,23 @@ function removeFile(folder) {
             console.log(`${pathFile} delete`)
         })
 }
-   
+
+function createFile(folder) {
+    const pathFile = (path.join(process.cwd(), folder.trim()));
+    fs.writeFile(pathFile, '', (err) => {
+        if (err) {
+            throw new Error('file is not create');
+        }
+        console.log('file create!!!')
+    })
+}
+
+function changeDirectory(folder) {
+    const pathFile = (path.join(process.cwd(), folder.trim()));
+    process.chdir(pathFile);
+    console.log(`You in ${pathFile}`);
+}
+
 startProject();
 
 
