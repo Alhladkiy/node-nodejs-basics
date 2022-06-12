@@ -7,6 +7,7 @@ import { join } from 'path';
 import process from 'process';
 import os from 'os';
 import path from 'path';
+import crypto from 'crypto';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -59,7 +60,9 @@ function startProject() {
             else if (line === `cd ${folder.trim()}`) {
                 changeDirectory(folder);
             }
-
+            else if (line === `hash ${folder.trim()}`) {
+                calculateHash(folder);
+            }
 
         });
 
@@ -149,6 +152,23 @@ function changeDirectory(folder) {
     process.chdir(pathFile);
     console.log(`You in ${pathFile}`);
 }
+
+function calculateHash(folder) {
+    const pathFile = (path.join(process.cwd(), folder.trim()));
+    if (fs.existsSync(pathFile)) {
+        fs.readFile(pathFile, 'utf8', (err, fileContent) => {
+            if (err) {
+                throw new Error('err, try again');
+            } else {
+                const hash = crypto.createHash('SHA256').update(fileContent).digest('hex');
+                console.log(hash);
+            }
+        });
+    } else {
+        throw new Error('err, try again');
+    }
+}
+
 
 startProject();
 
